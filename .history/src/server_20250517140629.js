@@ -1,7 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { ErrorHandler } from './middlewares/ErrorHandler.js';
-import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 import { env } from './utils/env.js';
 
