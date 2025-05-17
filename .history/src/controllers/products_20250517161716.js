@@ -34,12 +34,6 @@ export const updateProductController = async (req, res) => {
   const product = await updateProduct(id, req.body);
 
   if (!product) {
-    throw createHttpError(404, 'Product not found');
+    throw createHttpError();
   }
-
-  res.json({
-    status: 200,
-    message: 'Successfully patched a product!',
-    data: product,
-  });
 };

@@ -9,12 +9,3 @@ export const getAllProducts = async () => {
 export const getProductById = (productId) => {
   return ProductModel.findById(productId);
 };
-
-export const updateProduct = async (productId, payload) => {
-  const result = await ProductModel.findOneAndUpdate(
-    { _id: productId },
-    payload,
-    { new: true },
-  );
-  return result;
-};

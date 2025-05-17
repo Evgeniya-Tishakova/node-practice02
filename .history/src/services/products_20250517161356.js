@@ -16,5 +16,4 @@ export const updateProduct = async (productId, payload) => {
     payload,
     { new: true },
   );
-  return result;
 };

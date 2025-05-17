@@ -14,7 +14,5 @@ export const updateProduct = async (productId, payload) => {
   const result = await ProductModel.findOneAndUpdate(
     { _id: productId },
     payload,
-    { new: true },
   );
-  return result;
 };
