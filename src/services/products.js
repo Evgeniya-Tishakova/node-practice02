@@ -9,3 +9,7 @@ export const getAllProducts = async () => {
 export const getProductById = (productId) => {
   return ProductModel.findById(productId);
 };
+
+export const creatProduct = (payload) => {
+  return ProductModel.create(payload);
+};
