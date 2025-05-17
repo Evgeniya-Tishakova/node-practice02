@@ -11,7 +11,7 @@ export const productShema = new Schema(
       required: true,
     },
     category: {
-      type: Number,
+      type: String,
       enum: ['books', 'electronics', 'clothing', 'other'],
       required: true,
       default: 'other',

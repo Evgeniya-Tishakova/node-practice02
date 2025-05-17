@@ -18,3 +18,7 @@ export const updateProduct = async (productId, payload) => {
   );
   return result;
 };
+
+export const creatProduct = (payload) => {
+  return ProductModel.create(payload);
+};

@@ -3,6 +3,7 @@ import {
   getAllProducts,
   getProductById,
   updateProduct,
+  creatProduct,
 } from '../services/products.js';
 
 export const getAllProductsController = async (rec, res) => {
@@ -41,5 +42,15 @@ export const updateProductController = async (req, res) => {
     status: 200,
     message: 'Successfully patched a product!',
     data: product,
+  });
+};
+
+export const creatProductController = async (req, res) => {
+  const prodact = await creatProduct(req.body);
+
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully created a product!',
+    data: prodact,
   });
 };
