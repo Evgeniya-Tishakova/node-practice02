@@ -1,19 +1,39 @@
 import { Router } from 'express';
+import express from 'express';
 import {
   getAllProductsController,
   getProductByIdController,
   creatProductController,
   deleteProductController,
+  patchOneProductController,
 } from '../controllers/products.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { IsValidID } from '../middlewares/IsValidID.js';
+import { createProductSchema, updateProductSchema } from '../product.js';
 
 const router = Router();
-router.get('/products', ctrlWrapper(getAllProductsController));
+const jsonParser = express.json();
 
-router.get('/products/:id', ctrlWrapper(getProductByIdController));
+router.get('/', ctrlWrapper(getAllProductsController));
 
-router.post('/products', ctrlWrapper(creatProductController));
+router.get('/:id', IsValidID, ctrlWrapper(getProductByIdController));
 
-router.delete('/products/:id', ctrlWrapper(deleteProductController));
+router.post(
+  '/',
+  jsonParser,
+  validateBody(createProductSchema),
+  ctrlWrapper(creatProductController),
+);
+
+router.patch(
+  '/:id',
+  IsValidID,
+  jsonParser,
+  validateBody(updateProductSchema),
+  ctrlWrapper(patchOneProductController),
+);
+
+router.delete('/:id', IsValidID, ctrlWrapper(deleteProductController));
 
 export default router;

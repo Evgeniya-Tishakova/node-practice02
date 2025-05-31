@@ -4,10 +4,14 @@ import {
   getProductById,
   creatProduct,
   deleteProduct,
+  patchProduct,
 } from '../services/products.js';
+import { parsFilterParams } from '../utils/parsFilterParams.js';
 
-export const getAllProductsController = async (rec, res) => {
-  const products = await getAllProducts();
+export const getAllProductsController = async (req, res) => {
+  const { category, minPrice, maxPrice } = parsFilterParams(req.query);
+
+  const products = await getAllProducts({ category, minPrice, maxPrice });
   res.json({
     status: 200,
     message: 'Successfully found products!',
@@ -50,4 +54,20 @@ export const deleteProductController = async (req, resp) => {
   }
 
   resp.status(204).end();
+};
+
+export const patchOneProductController = async (req, resp) => {
+  const { id } = req.params;
+
+  const patchedProduct = await patchProduct(id, req.body);
+
+  if (patchedProduct === null) {
+    throw createHttpError(404, 'Contact not found');
+  }
+
+  resp.json({
+    status: 200,
+    message: 'Successfully patched a contact!',
+    data: patchedProduct,
+  });
 };
