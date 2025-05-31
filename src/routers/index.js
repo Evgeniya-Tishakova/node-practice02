@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import productsRouter from './products.js';
 import authRouter from './auth.js';
+import productsRouter from './products.js';
 
 const router = Router();
 
+router.use('/users', authRouter);
 router.use('/products', productsRouter);
-router.use('/auth', authRouter);
 
 export default router;

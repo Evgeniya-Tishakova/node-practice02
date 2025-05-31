@@ -10,7 +10,10 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { IsValidID } from '../middlewares/IsValidID.js';
-import { createProductSchema, updateProductSchema } from '../product.js';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '../validation/product.js';
 
 const router = Router();
 const jsonParser = express.json();
