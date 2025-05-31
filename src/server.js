@@ -3,6 +3,8 @@ import cors from 'cors';
 import { ErrorHandler } from './middlewares/ErrorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import productsRouter from './routers/products.js';
+import mainRouter from './routers/index.js';
+import cookieParser from 'cookie-parser';
 
 import { env } from './utils/env.js';
 
@@ -13,8 +15,9 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(cors());
+  app.use(cookieParser());
 
-  app.use(productsRouter);
+  app.use(mainRouter);
 
   app.use('*', notFoundHandler);
 

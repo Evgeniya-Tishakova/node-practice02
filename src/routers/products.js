@@ -1,4 +1,7 @@
+//* Express
 import { Router } from 'express';
+
+//* Services
 import {
   getAllProductsController,
   getProductByIdController,
@@ -7,13 +10,29 @@ import {
 } from '../controllers/products.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
+//* Middlewares
+import { validateBody } from '../middlewares/validateBody.js';
+import { isValidId } from '../middlewares/isValidId.js';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '../validation/productsValidation.js';
+import { authenticate } from '../middlewares/authenthicate.js';
+
 const router = Router();
-router.get('/products', ctrlWrapper(getAllProductsController));
 
-router.get('/products/:id', ctrlWrapper(getProductByIdController));
+router.use(authenticate);
 
-router.post('/products', ctrlWrapper(creatProductController));
+router.get('/', ctrlWrapper(getAllProductsController));
 
-router.delete('/products/:id', ctrlWrapper(deleteProductController));
+router.get('/:id', isValidId, ctrlWrapper(getProductByIdController));
+
+router.post(
+  '/',
+  validateBody(createProductSchema),
+  ctrlWrapper(creatProductController),
+);
+
+router.delete('/:id', isValidId, ctrlWrapper(deleteProductController));
 
 export default router;
