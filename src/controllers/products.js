@@ -6,9 +6,13 @@ import {
   creatProduct,
   deleteProduct,
 } from '../services/products.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
-export const getAllProductsController = async (rec, res) => {
-  const products = await getAllProducts();
+export const getAllProductsController = async (req, res) => {
+  const filter = parseFilterParams(req.query);
+
+  const products = await getAllProducts(filter);
+
   res.json({
     status: 200,
     message: 'Successfully found products!',
