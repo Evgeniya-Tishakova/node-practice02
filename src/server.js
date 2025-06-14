@@ -7,6 +7,7 @@ import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
 
 import { env } from './utils/env.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -16,6 +17,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors());
   app.use(cookieParser());
+  app.use('/api-docs', swaggerDocs());
 
   app.use(router);
 

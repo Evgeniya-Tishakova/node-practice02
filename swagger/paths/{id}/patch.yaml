@@ -1,19 +1,22 @@
 tags:
   - Products
-summary: Create product
-operationId: createProduct
-description: 'Create a product with payload'
+summary: Update product
+operationId: updateProduct
+description: 'Update a product with payload'
 security:
   - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
 requestBody:
   content:
     application/json:
       schema:
         type: object
-        required:
-          - name
-          - price
-          - category
         properties:
           name:
             description: "Product's name"
@@ -33,8 +36,8 @@ requestBody:
             type: string
             example: "Product's description"
 responses:
-  '201':
-    description: Creates a product
+  '200':
+    description: Update a product
     content:
       application/json:
         schema:
@@ -46,16 +49,18 @@ responses:
           properties:
             status:
               type: integer
-              example: 201
+              example: 200
             message:
               type: string
-              example: Successfully created a product!
+              example: Successfully patched a product!
             data:
               type: object
-              $ref: ../components/schemas/product.yaml
+              $ref: ../../components/schemas/product.yaml
   '400':
-    $ref: ../components/responces/400.yaml
+    $ref: ../../components/responces/400.yaml
   '401':
-    $ref: ../components/responces/401.yaml
+    $ref: ../../components/responces/401.yaml
+  '404':
+    $ref: ../../components/responces/404.yaml
   '500':
-    $ref: '../components/responces/500.yaml'
+    $ref: '../../components/responces/500.yaml'
