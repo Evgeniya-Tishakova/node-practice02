@@ -18,6 +18,11 @@ paths:
   /products:
     get:
       $ref: '../swagger/paths/get.yaml'
+    post:
+      $ref: '../swagger/paths/post.yaml'
+  /products/{id}:
+    get:
+      $ref: '../swagger/paths/{id}/get.yaml'
 
 components:
   securitySchemes:

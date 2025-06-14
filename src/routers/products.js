@@ -22,13 +22,13 @@ router.get('/:id', validateId, ctrlWrapper(getProductByIdController));
 router.patch(
   '/:id',
   validateId,
-  validateBody(createProductsSchema),
+  validateBody(updateProductsSchema),
   ctrlWrapper(updateProductController),
 );
 
 router.post(
   '/',
-  validateBody(updateProductsSchema),
+  validateBody(createProductsSchema),
   ctrlWrapper(creatProductController),
 );
 
