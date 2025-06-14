@@ -22,8 +22,10 @@ const userSchema = new Schema(
   },
 );
 
+//! аби пароль не повертався у відповідь
+
 userSchema.methods.toJSON = function () {
-  const obj = this.toObject;
+  const obj = this.toObject();
   delete obj.password;
   return obj;
 };

@@ -1,7 +1,12 @@
 import { ProductModel } from '../db/models/product.js';
 
-export const getAllProducts = async ({ category, minPrice, maxPrice }) => {
-  const productsQuery = ProductModel.find();
+export const getAllProducts = async ({
+  category,
+  minPrice,
+  maxPrice,
+  userId,
+}) => {
+  const productsQuery = ProductModel.find({ userId });
 
   if (category) {
     productsQuery.where('category').equals(category);
@@ -16,20 +21,24 @@ export const getAllProducts = async ({ category, minPrice, maxPrice }) => {
   return productsQuery;
 };
 
-export const getProductById = async (productId) => {
-  return await ProductModel.findById(productId);
+export const getProductById = async (productId, userId) => {
+  return await ProductModel.findOne({ _id: productId, userId });
 };
 
 export const creatProduct = async (payload) => {
   return await ProductModel.create(payload);
 };
 
-export const deleteProduct = async (productId) => {
-  return await ProductModel.findByIdAndDelete(productId);
+export const deleteProduct = async (productId, userId) => {
+  return await ProductModel.findOneAndDelete({ _id: productId, userId });
 };
 
-export const patchProduct = async (productId, payload) => {
-  return await ProductModel.findByIdAndUpdate(productId, payload, {
-    new: true,
-  });
+export const patchProduct = async (productId, payload, userId) => {
+  return await ProductModel.findOneAndUpdate(
+    { _id: productId, userId },
+    payload,
+    {
+      new: true,
+    },
+  );
 };

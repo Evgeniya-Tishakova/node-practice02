@@ -11,7 +11,12 @@ import { parsFilterParams } from '../utils/parsFilterParams.js';
 export const getAllProductsController = async (req, res) => {
   const { category, minPrice, maxPrice } = parsFilterParams(req.query);
 
-  const products = await getAllProducts({ category, minPrice, maxPrice });
+  const products = await getAllProducts({
+    category,
+    minPrice,
+    maxPrice,
+    userId: req.user._id,
+  });
   res.json({
     status: 200,
     message: 'Successfully found products!',
@@ -21,7 +26,7 @@ export const getAllProductsController = async (req, res) => {
 
 export const getProductByIdController = async (req, res) => {
   const { id } = req.params;
-  const product = await getProductById(id);
+  const product = await getProductById({ id, userId: req.user._id });
 
   if (product === null) {
     throw createHttpError(404, 'Product not found');
@@ -35,7 +40,7 @@ export const getProductByIdController = async (req, res) => {
 };
 
 export const creatProductController = async (req, res) => {
-  const prodact = await creatProduct(req.body);
+  const prodact = await creatProduct({ ...req.body, userId: req.user._id });
 
   res.status(201).json({
     status: 201,
@@ -47,7 +52,7 @@ export const creatProductController = async (req, res) => {
 export const deleteProductController = async (req, resp) => {
   const { id } = req.params;
 
-  const deletedProduct = await deleteProduct(id);
+  const deletedProduct = await deleteProduct(id, req.user._id);
 
   if (deletedProduct === null) {
     throw createHttpError(404, 'Product not found');
@@ -59,7 +64,7 @@ export const deleteProductController = async (req, resp) => {
 export const patchOneProductController = async (req, resp) => {
   const { id } = req.params;
 
-  const patchedProduct = await patchProduct(id, req.body);
+  const patchedProduct = await patchProduct(id, req.body, req.user._id);
 
   if (patchedProduct === null) {
     throw createHttpError(404, 'Contact not found');
