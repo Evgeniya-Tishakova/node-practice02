@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Products app
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: >
+    Operation with Products
+tags:
+  - name: Products
+    description: Operation with Products
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /products:
+    get:
+      $ref: '../swagger/paths/get.yaml'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
